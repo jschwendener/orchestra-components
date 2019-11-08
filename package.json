@@ -1,14 +1,33 @@
 {
-  "name": "components",
+  "name": "orchestra-components",
+  "description": "Orchestra Component Library",
   "version": "0.1.0",
-  "private": true,
+  "author": {
+    "name": "Jonas Schwendener",
+    "email": "jonas.schwendener@gmail.com"
+  },
+  "keywords": [
+    "vue",
+    "component",
+    "library",
+    "orchestra"
+  ],
+  "private": false,
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name OrchestraComponents src/components/index.js",
     "lint": "vue-cli-service lint"
   },
+  "main": "./dist/OrchestraComponents.umd.js",
+  "unpkg": "dist/OrchestraComponents.umd.min.js",
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
   "dependencies": {
     "core-js": "^3.3.2",
+    "flatpickr": "^4.6.3",
     "vue": "^2.6.10"
   },
   "devDependencies": {
