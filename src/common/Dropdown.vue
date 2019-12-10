@@ -2,13 +2,16 @@
   <div class="dropdown d-inline-block">
     <div @click.stop="toggle()">
         <slot name="toggle">
-            <o-button v-tooltip="'More'" type="light"><o-icon :icon="['far', 'ellipsis-v']" fixed-width></o-icon></o-button>
+            <o-button type="link"><o-icon :icon="['far', 'ellipsis-v']" fixed-width></o-icon></o-button>
         </slot>
     </div>
     <transition name="dropdown">
         <div v-if="isOpen" class="dropdown-menu mt-2 show" :class="`dropdown-menu-${align}`" aria-labelledby="dropdownMenuButton">
-            <slot></slot>
+            <slot :toggle="toggle"></slot>
         </div>
+    </transition>
+    <transition name="dropdown-backdrop">
+        <div v-if="isOpen" class="dropdown-backdrop"></div>
     </transition>
   </div>
 </template>

@@ -5,7 +5,7 @@
         <small v-if="helpText" 
             :id="`form-input-${label}-help`" 
             class="form-text text-muted">
-            {{ helpText }}
+            {{ Array.isArray(helpText) ? helpText.join(', ') : helpText }}
         </small>
     </div>
 </template>
@@ -17,7 +17,7 @@ export default {
             default: null,
         },
         helpText: {
-            type: String,
+            type: [String, Array],
             default: null,
         },
         required: {

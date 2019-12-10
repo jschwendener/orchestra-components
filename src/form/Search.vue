@@ -18,23 +18,28 @@
                 @keydown.enter.stop="onInputEnter()"
                 @keydown.up.prevent="onInputUp()"
                 @keydown.down.prevent="onInputDown()">
-            <div ref="menu" class="dropdown-menu mt-2" :class="{ 'show': dropdownIsOpen }" style="min-width: 100%;">
-                <button
-                    ref="items"
-                    class="dropdown-item"
-                    :class="{ 
-                        'active': option === selectedOption,
-                        'bg-light':  option !== selectedOption && index === currentIndex 
-                    }"
-                    v-for="(option, index) in filteredOptions" 
-                    :key="index"
-                    @click.prevent="onOptionSelect(option)">
-                    <slot :option="option" :index="index">
-                        {{ option.label }}
-                    </slot>
-                </button>
-                <div v-if="filteredOptions.length === 0" class="dropdown-item disabled">Keine Ergebnisse.</div>
-            </div>
+            <transition name="dropdown">
+                <div v-if="dropdownIsOpen" ref="menu" class="dropdown-menu mt-2" :class="{ 'show': dropdownIsOpen }">
+                    <button
+                        ref="items"
+                        class="dropdown-item"
+                        :class="{ 
+                            'active': option === selectedOption,
+                            'bg-light':  option !== selectedOption && index === currentIndex 
+                        }"
+                        v-for="(option, index) in filteredOptions" 
+                        :key="index"
+                        @click.prevent="onOptionSelect(option)">
+                        <slot :option="option" :index="index">
+                            {{ option.label }}
+                        </slot>
+                    </button>
+                    <div v-if="filteredOptions.length === 0" class="dropdown-item disabled">Keine Ergebnisse.</div>
+                </div>
+            </transition>
+            <transition name="dropdown-backdrop">
+                <div v-if="dropdownIsOpen" class="dropdown-backdrop" @click="onInputEsc()"></div>
+            </transition>
         </div>
     </o-form-group>
 </template>
@@ -101,7 +106,12 @@ export default {
             this.search = null
             this.currentIndex = null
             this.dropdownIsOpen = false
-            this.$refs.input.blur()
+
+            this.$nextTick(() => {
+                if (this.$refs.input) {
+                    this.$refs.input.blur()
+                }
+            })
         },
 
         selectOption(option) {
@@ -187,7 +197,7 @@ export default {
             if (this.search) {
                 options = options.filter(option => {
                     return searchBy.some(key => {
-                        return option[key].toLowerCase().includes(this.search.toLowerCase())
+                        return option[key].toString().toLowerCase().includes(this.search.toLowerCase())
                     })
                 })
             }

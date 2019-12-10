@@ -1,9 +1,8 @@
 <template>
-    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header py-2" :class="`text-${type}`">
+    <div class="toast show" :class="`bg-${type}`" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header py-2">
             <o-icon v-if="icon" :icon="['far', icon]" class="mr-2"></o-icon>
             <strong class="mr-auto pr-3">{{ title }}</strong>
-            <small class="text-muted">{{ created }}</small>
             <a href="javascript:;">
                 <o-icon
                     :icon="['far', 'times']"
@@ -14,7 +13,12 @@
             </a>
         </div>
         <div v-if="$slots.default || message" class="toast-body">
-            <slot>{{ message }}</slot>
+            <slot>
+                <ul v-if="Array.isArray(message)" class="list-unstyled m-0">
+                    <li v-for="(m, i) in message" :key="i">{{ m }}</li>
+                </ul>
+                <div v-else>{{ message }}</div>
+            </slot>
         </div>
     </div>
 </template>
@@ -31,12 +35,12 @@ export default {
             default: 'Notification'
         },
         message: {
-            type: String,
+            type: [String, Array],
             default: null,
         },
         type: {
             type: String,
-            default: 'default'
+            default: null,
         },
         icon: {
             type: String,

@@ -1,5 +1,5 @@
 <template functional>
-    <h4 class="dropdown-header">
+    <ul class="nav nav-tabs">
         <slot />
-    </h4>
+    </ul>
 </template>

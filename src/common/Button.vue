@@ -9,9 +9,9 @@
             size ? `btn-${size}` : null
         ]" 
         @click="$emit('click', $event)">
-        <o-icon v-if="icon" :icon="[iconPrefix, icon]" fixed-width :class="{ 'mr-1': $slots.default }"></o-icon>
+        <o-icon v-if="icon" :icon="[iconPrefix, icon]" :class="{ 'mr-1': $slots.default }"></o-icon>
         <slot></slot>
-        <o-icon v-if="iconAfter" :icon="[iconPrefix, iconAfter]" fixed-width :class="{ 'ml-1': $slots.default }"></o-icon>
+        <o-icon v-if="iconAfter" :icon="[iconPrefix, iconAfter]" :class="{ 'ml-1': $slots.default }"></o-icon>
     </button>
 </template>
 <script>

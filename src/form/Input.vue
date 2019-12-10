@@ -5,11 +5,15 @@
             :type="type"
             :name="name"
             class="form-control" 
+            :class="{
+                'bg-darkish border-dark text-white': active
+            }"
             :id="`form-input-${label}`" 
             :aria-describedby="`form-input-${label}-help`" 
             :placeholder="placeholder"
             :value="value"
             :autocomplete="autocomplete ? 'on' : 'off'"
+            :autofocus="autofocus"
             :required="required"
             @input="$emit('input', $event.target.value)">
     </o-form-group>
@@ -49,7 +53,15 @@ export default {
             type: Boolean,
             default: true,
         },
+        autofocus: {
+            type: Boolean,
+            default: false,
+        },
         required: {
+            type: Boolean,
+            default: false,
+        },
+        active: {
             type: Boolean,
             default: false,
         }

@@ -1,9 +1,13 @@
 <template functional>
-    <div class="mb-3" :class="{ 'text-center': props.center }">
-        <slot>
-            <div class="text-primary font-weight-bold" v-if="props.prehead">{{ props.prehead }}</div>
-            <h1 v-if="props.title">{{ props.title }}</h1>
-        </slot>
+    <div class="d-flex align-items-center mb-3" :class="{ 'text-center': props.center }">
+        <div v-if="props.image" class="d-flex align-items-center mr-3" style="width: 3.2rem; height: 3.2rem;">
+            <img :src="props.image" class="img-fluid rounded-circle">
+        </div>
+        <div>
+            <div class="text-muted font-weight-bold" v-if="props.prehead">{{ props.prehead }}</div>
+            <h1 v-if="props.title" class="m-0">{{ props.title }} <small v-if="props.postfix">{{ props.postfix }}</small></h1>
+            <slot />
+        </div>
     </div>
 </template>
 <script>
@@ -13,6 +17,10 @@ export default {
             type: String,
             default: null
         },
+        postfix: {
+            type: [String, Number],
+            default: null
+        },
         prehead: {
             type: String,
             default: null
@@ -20,6 +28,10 @@ export default {
         center: {
             type: Boolean,
             default: false
+        },
+        image: {
+            type: String,
+            default: null
         }
     }
 }
