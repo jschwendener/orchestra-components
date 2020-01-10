@@ -1,21 +1,31 @@
 <template>
     <o-form-group :label="label" :required="required" :help-text="helpText">
-        <input 
-            ref="input"
-            :type="type"
-            :name="name"
-            class="form-control" 
-            :class="{
-                'bg-darkish border-dark text-white': active
-            }"
-            :id="`form-input-${label}`" 
-            :aria-describedby="`form-input-${label}-help`" 
-            :placeholder="placeholder"
-            :value="value"
-            :autocomplete="autocomplete ? 'on' : 'off'"
-            :autofocus="autofocus"
-            :required="required"
-            @input="$emit('input', $event.target.value)">
+        <div class="input-group">
+            <div v-if="prepend" class="input-group-prepend">
+                <div class="input-group-text">{{ prepend }}</div>
+            </div>
+            <input 
+                ref="input"
+                :type="type"
+                :name="name"
+                class="form-control" 
+                :class="{
+                    'bg-darkish border-dark text-white': active,
+                    'is-invalid': invalid,
+                }"
+                :id="`form-input-${label}`" 
+                :aria-describedby="`form-input-${label}-help`" 
+                :placeholder="placeholder"
+                :value="value"
+                @input="$emit('input', $event.target.value)"
+                :autocomplete="autocomplete ? 'on' : 'off'"
+                :autofocus="autofocus"
+                :required="required"
+                :disabled="disabled">
+            <div v-if="append" class="input-group-append">
+                <div class="input-group-text">{{ append }}</div>
+            </div>
+        </div>
     </o-form-group>
 </template>
 <script>
@@ -31,6 +41,14 @@ export default {
             default: null,
         },
         name: {
+            type: String,
+            default: null,
+        },
+        prepend: {
+            type: String,
+            default: null,
+        },
+        append: {
             type: String,
             default: null,
         },
@@ -51,7 +69,7 @@ export default {
         },
         autocomplete: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         autofocus: {
             type: Boolean,
@@ -64,7 +82,15 @@ export default {
         active: {
             type: Boolean,
             default: false,
-        }
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        invalid: {
+            type: [Boolean, Array],
+            default: false,
+        },
     },
 
     methods: {

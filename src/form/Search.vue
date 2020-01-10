@@ -9,17 +9,25 @@
                 :id="`form-input-${label}`" 
                 :aria-describedby="`form-input-${label}-help`" 
                 :placeholder="placeholderText"
-                :value="search || (!dropdownIsOpen && selectedOption ? selectedOption.label : null)"
+                :value="selectedOption ? selectedOption.label : null"
                 :required="required"
                 autocomplete="off"
-                @input="onInputChange($event.target.value)"
-                @focus="onInputFocus()"
-                @keyup.esc="onInputEsc()"
-                @keydown.enter.stop="onInputEnter()"
-                @keydown.up.prevent="onInputUp()"
-                @keydown.down.prevent="onInputDown()">
+                @focus="onInputFocus()">
             <transition name="dropdown">
-                <div v-if="dropdownIsOpen" ref="menu" class="dropdown-menu mt-2" :class="{ 'show': dropdownIsOpen }">
+                <div v-if="dropdownIsOpen" ref="menu" class="dropdown-menu dropdown-menu-limit mt-2" :class="{ 'show': dropdownIsOpen }">
+                    <div class="py-1 px-2 mb-1">
+                        <input 
+                            ref="searchInput"
+                            type="text" 
+                            class="form-control" 
+                            v-model="search" 
+                            autocomplete="off"
+                            @input="onInputChange($event.target.value)"
+                            @keyup.esc="onInputEsc()"
+                            @keydown.enter.stop.prevent="onInputEnter()"
+                            @keydown.up.prevent="onInputUp()"
+                            @keydown.down.prevent="onInputDown()" />
+                    </div>
                     <button
                         ref="items"
                         class="dropdown-item"
@@ -79,9 +87,17 @@ export default {
             type: Boolean,
             default: false
         },
+        autofocus: {
+            type: Boolean,
+            default: false
+        },
         searchBy: {
             type: Array,
             default: () => []
+        },
+        selectFirst: {
+            type: Boolean,
+            default: false,
         }
     },
 
@@ -95,6 +111,12 @@ export default {
 
     mounted() {
         document.addEventListener('click', () => this.closeDropdown())
+    },
+
+    activated() {
+        if (this.autofocus) {
+            this.$nextTick(() => this.$refs.input.focus())
+        }
     },
 
     methods: {
@@ -131,7 +153,11 @@ export default {
 
         onInputFocus() {
             this.openDropdown()
-            this.$refs.input.select()
+            this.$nextTick(() => {
+                if (this.$refs.searchInput) {
+                    this.$refs.searchInput.select()
+                }
+            })
         },
 
         onInputEnter() {
@@ -197,7 +223,8 @@ export default {
             if (this.search) {
                 options = options.filter(option => {
                     return searchBy.some(key => {
-                        return option[key].toString().toLowerCase().includes(this.search.toLowerCase())
+                        const value = typeof key === 'function' ? key(option) : option[key]
+                        return value.toString().toLowerCase().includes(this.search.toLowerCase())
                     })
                 })
             }
@@ -210,11 +237,20 @@ export default {
                 if (this.currentOption) {
                     return this.currentOption.label + ' (Enter zum Auswählen)'
                 }
-
-                return 'Suchen ...'
             }
 
             return this.placeholder
+        }
+    },
+
+    watch: {
+        options: {
+            handler() {
+                if (!this.value && this.selectFirst && this.options.length > 0) {
+                    this.selectOption(this.options[0])
+                }
+            },
+            immediate: true
         }
     }
 }

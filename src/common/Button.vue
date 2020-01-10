@@ -6,7 +6,8 @@
         :class="[
             `btn${outline ? '-outline' : ''}-${type}`, 
             block ? 'btn-block' : null,
-            size ? `btn-${size}` : null
+            size ? `btn-${size}` : null,
+            (icon || iconAfter) && !$slots.default ? 'btn-icon' : null
         ]" 
         @click="$emit('click', $event)">
         <o-icon v-if="icon" :icon="[iconPrefix, icon]" :class="{ 'mr-1': $slots.default }"></o-icon>

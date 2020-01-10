@@ -1,10 +1,10 @@
 <template functional>
-    <div class="d-flex align-items-center mb-3" :class="{ 'text-center': props.center }">
+    <div class="d-flex align-items-center mb-md-3" :class="{ 'text-center': props.center }">
         <div v-if="props.image" class="d-flex align-items-center mr-3" style="width: 3.2rem; height: 3.2rem;">
             <img :src="props.image" class="img-fluid rounded-circle">
         </div>
         <div>
-            <div class="text-muted font-weight-bold" v-if="props.prehead">{{ props.prehead }}</div>
+            <div class="prehead" v-if="props.prehead">{{ props.prehead }}</div>
             <h1 v-if="props.title" class="m-0">{{ props.title }} <small v-if="props.postfix">{{ props.postfix }}</small></h1>
             <slot />
         </div>

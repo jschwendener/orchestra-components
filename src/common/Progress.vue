@@ -1,10 +1,10 @@
-<template>
-    <div class="progress my-2">
+<template functional>
+    <div class="progress" :class="[data.class, data.staticClass]">
         <div class="progress-bar"
-            :class="[`bg-${type}`]"
-            :style="{ width: `${value}%` }"  
+            :class="[`bg-${props.type}`]"
+            :style="{ width: `${props.value}%` }"  
             role="progressbar" 
-            :aria-valuenow="value" 
+            :aria-valuenow="props.value" 
             aria-valuemin="0" 
             aria-valuemax="100">
             <slot></slot>

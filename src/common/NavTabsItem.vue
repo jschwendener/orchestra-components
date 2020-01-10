@@ -1,6 +1,6 @@
 <template functional>
     <li class="nav-item">
-        <nuxt-link class="nav-link" active-class="active" exact :to="props.link">
+        <nuxt-link class="nav-link" active-class="active" exact :to="props.link" replace>
             <o-icon v-if="props.icon" :icon="[props.iconPrefix, props.icon]" fixed-width :class="{ 'mr-1': slots().default }"></o-icon>
             <slot />
         </nuxt-link>

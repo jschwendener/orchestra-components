@@ -3,7 +3,7 @@
         <o-icon v-if="icon" :icon="['far', icon]" fixed-width class="mr-2 ml-n1"></o-icon>
         <slot></slot>
     </router-link>
-    <a href="javascript:;" @click="$emit('click', $event)" v-else class="dropdown-item" :class="{ 'active': active }">
+    <a :href="href || 'javascript:;'" :target="href ? '_blank' : null" @click="$emit('click', $event)" v-else class="dropdown-item" :class="{ 'active': active }">
         <o-icon v-if="icon" :icon="['far', icon]" fixed-width class="mr-2 ml-n1"></o-icon>
         <slot></slot>
     </a>
@@ -13,7 +13,11 @@ export default {
     props: {
         to: {
             type: [String, Object],
-            default: null,
+            default: null
+        },
+        href: {
+            type: String,
+            default: null
         },
         icon: {
             type: String,

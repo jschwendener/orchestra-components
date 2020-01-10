@@ -1,8 +1,8 @@
 <template functional>
-    <div :class="{
+    <div :class="[{
         'container': !props.fluid,
-        'container-fluid': props.fluid,
-    }">
+        'container-fluid': props.fluid
+    }, data.class, data.staticClass]">
         <div v-if="props.narrow" class="row justify-content-center">
             <div class="col-lg-8">
                 <slot />

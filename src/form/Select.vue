@@ -58,6 +58,21 @@ export default {
         disabled: {
             type: Boolean,
             default: false,
+        },
+        selectFirst: {
+            type: Boolean,
+            default: false,
+        }
+    },
+
+    watch: {
+        options: {
+            handler() {
+                if (!this.value && this.selectFirst && this.options.length > 0) {
+                    this.$emit('input', this.options[0][this.valueField])
+                }
+            },
+            immediate: true
         }
     }
 }

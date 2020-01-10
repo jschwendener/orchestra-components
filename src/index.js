@@ -17,6 +17,7 @@ import Breadcrumb from './common/Breadcrumb.vue'
 import BreadcrumbItem from './common/BreadcrumbItem.vue'
 
 import Form from './form/Form.vue'
+import FormGroup from './form/Group.vue'
 import Checkbox from './form/Checkbox.vue'
 import DatePicker from './form/DatePicker.vue'
 import Input from './form/Input.vue'
@@ -56,6 +57,7 @@ export const OBreadcrumb = Breadcrumb
 export const OBreadcrumbItem = BreadcrumbItem
 
 export const OForm = Form
+export const OFormGroup = FormGroup
 export const OCheckbox = Checkbox
 export const ODatePicker = DatePicker
 export const OInput = Input
@@ -96,6 +98,7 @@ export default {
     OBreadcrumbItem,
 
     OForm,
+    OFormGroup,
     OCheckbox,
     ODatePicker,
     OInput,
