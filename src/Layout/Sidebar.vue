@@ -6,7 +6,8 @@
                     <slot name="icon">B</slot>
                 </div>
                 <div class="sidebar-label">
-                    <h4 class="m-0">{{ title }}</h4>
+                    <div>{{ title }}</div>
+                    <div v-if="app" class="text-muted font-weight-normal">{{ app }}</div>
                 </div>
             </div>
 
@@ -16,7 +17,7 @@
 </template>
 <script>
 export default {
-    props: ['title', 'open'],
+    props: ['title', 'app', 'open'],
     computed: {
         toggleIcon() {
             return this.open

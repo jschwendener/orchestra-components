@@ -1,5 +1,8 @@
 <template functional>
-    <div class="loading-container">
+    <div class="loading-container" :class="props.loading ? [
+        data.class, 
+        data.staticClass
+    ] : []">
         <slot />
         <transition name="fade">
             <div v-if="props.loading" class="loading-spinner">

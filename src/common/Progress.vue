@@ -1,7 +1,7 @@
 <template functional>
     <div class="progress" :class="[data.class, data.staticClass]">
         <div class="progress-bar"
-            :class="[`bg-${props.type}`]"
+            :class="[`progress-bar-${props.type}`]"
             :style="{ width: `${props.value}%` }"  
             role="progressbar" 
             :aria-valuenow="props.value" 

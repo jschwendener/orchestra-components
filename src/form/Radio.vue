@@ -9,7 +9,7 @@
                 :checked="option[valueField] == value"
                 @input="$emit('input', $event.target.value)">
             
-            <label :for="`form-radio-${label}-${index}`" class="custom-control-label text-dark">
+            <label :for="`form-radio-${label}-${index}`" class="custom-control-label">
                 <slot 
                 :id="`form-radio-${label}-${index}`"
                 :option="option">

@@ -1,5 +1,5 @@
 <template functional>
-    <div class="alert" :class="`alert-${props.type}`" role="alert">
+    <div class="alert" :class="[`alert-${props.type}`, data.class, data.staticClass]" role="alert">
         <slot></slot>
     </div>
 </template>

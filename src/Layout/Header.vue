@@ -1,6 +1,6 @@
 <template functional>
     <header>
-        <div class="header-container">
+        <div class="header-container container">
             <slot />
         </div>
     </header>

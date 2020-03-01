@@ -4,7 +4,7 @@
         'container-fluid': props.fluid
     }, data.class, data.staticClass]">
         <div v-if="props.narrow" class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-10 col-xl-8">
                 <slot />
             </div>
         </div>

@@ -1,6 +1,6 @@
 <template functional>
 	<span 
-        class="badge"
+        class="badge badge-pill"
         :class="[
             data.class, 
             data.staticClass, 

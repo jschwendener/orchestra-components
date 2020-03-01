@@ -1,7 +1,7 @@
 <template functional>
     <router-link :to="props.link" :exact="props.link === '/'" class="sidebar-row sidebar-item">
         <div class="sidebar-icon" title="label" v-tooltip:right="props.tooltip ? props.label : null">
-            <o-icon v-if="props.icon" :icon="['fad', props.icon]" :size="props.iconSize"></o-icon>
+            <o-icon v-if="props.icon" :icon="['fal', props.icon]" :size="props.iconSize"></o-icon>
         </div>
         <div class="sidebar-label">
             <slot>

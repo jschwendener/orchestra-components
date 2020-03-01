@@ -19,7 +19,7 @@
                         <input 
                             ref="searchInput"
                             type="text" 
-                            class="form-control" 
+                            class="form-control border-0 shadow-none" 
                             v-model="search" 
                             autocomplete="off"
                             @input="onInputChange($event.target.value)"
@@ -28,6 +28,7 @@
                             @keydown.up.prevent="onInputUp()"
                             @keydown.down.prevent="onInputDown()" />
                     </div>
+                    <button v-if="nullOption && value" class="dropdown-item border-bottom" @click="onOptionSelect(null)">{{ nullOption }}</button>
                     <button
                         ref="items"
                         class="dropdown-item"
@@ -43,6 +44,7 @@
                         </slot>
                     </button>
                     <div v-if="filteredOptions.length === 0" class="dropdown-item disabled">Keine Ergebnisse.</div>
+                    <button v-if="allowCreate && search" class="dropdown-item border-top" @click="onCreate()"><o-icon :icon="['far', 'plus-circle']" fixed-width /> <strong>{{ search }}</strong> ...</button>
                 </div>
             </transition>
             <transition name="dropdown-backdrop">
@@ -75,6 +77,10 @@ export default {
             type: Array,
             default: () => []
         },
+        nullOption: {
+            type: String,
+            default: null
+        },
         helpText: {
             type: String,
             default: null
@@ -96,6 +102,10 @@ export default {
             default: () => []
         },
         selectFirst: {
+            type: Boolean,
+            default: false,
+        },
+        allowCreate: {
             type: Boolean,
             default: false,
         }
@@ -202,6 +212,11 @@ export default {
                     this.$refs.menu.scrollTop = itemOffsetTop
                 }
             })
+        },
+
+        onCreate() {
+            this.$emit('create', this.search)
+            this.closeDropdown()
         }
     },
 

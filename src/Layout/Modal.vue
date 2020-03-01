@@ -2,7 +2,7 @@
     <transition name="modal">
         <div v-if="show">
             <div class="modal d-block" tabindex="-1" role="dialog" @click="close()">
-                <div class="modal-dialog modal-dialog-centered" :class="`modal-${size}`" role="document" style="margin-top: -5rem;">
+                <div class="modal-dialog modal-dialog-centered" :class="`modal-${size}`" role="document">
                     <div class="modal-content shadow-lg" @click.stop>
                         <div v-if="title" class="modal-header align-items-center">
                             <h5 class="modal-title" :class="`text-${type}`">
@@ -10,7 +10,7 @@
                             </h5>
                             <o-button icon="times" class="btn-sm text-dark" @click="close()"></o-button>
                         </div>
-                        <div class="modal-body overflow-hidden">
+                        <div class="modal-body overflow-auto">
                             <slot></slot>
                         </div>
                         <div class="modal-footer">

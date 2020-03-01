@@ -5,13 +5,13 @@
                 <a class="nav-link" 
                     :class="{ 'active': (tab.name || tab) == active, 'disabled': tab.disabled }" 
                     href="javascript:;" 
-                    @click="active = (tab.name || tab)">
+                    @click="changeTab(tab)">
                         <o-icon v-if="tab.icon" 
                             :icon="['far', tab.icon]" 
                             class="mr-1" 
                             :class="`text-${(tab.name || tab) == active ? 'primary' : 'muted'}`">
                         </o-icon>
-                        {{ tab.name || tab }}
+                        {{ tab.label || tab.name || tab }}
                     </a>
             </li>
             <div class="ml-auto d-flex">
@@ -32,7 +32,7 @@ export default {
     props: {
         tabs: {
             type: Array,
-            default: [],
+            default: () => [],
         }
     },
 
@@ -45,6 +45,13 @@ export default {
     created() {
         let first = this.tabs.find(t => t.disabled === 'undefined' || !t.disabled);
         this.active = first.name || first || null;
+    },
+
+    methods: {
+        changeTab(tab) {
+            this.active = tab.name || tab
+            this.$emit('changed', this.active)
+        }
     }
 }
 </script>

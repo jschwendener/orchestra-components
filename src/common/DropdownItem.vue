@@ -1,10 +1,28 @@
-<template>
-    <router-link v-if="to" class="dropdown-item" :class="{ 'active': active }" :to="to">
-        <o-icon v-if="icon" :icon="['far', icon]" fixed-width class="mr-2 ml-n1"></o-icon>
+<template functional>
+    <router-link v-if="props.to" 
+        class="dropdown-item" 
+        :class="[
+            props.active ? 'active' : null,
+            props.disabled ? 'disabled' : null,
+            data.class,
+            data.staticClass
+        ]" 
+        :to="props.to">
+        <o-icon v-if="props.icon" :icon="['far', props.icon]" fixed-width class="mr-2 ml-n1"></o-icon>
         <slot></slot>
     </router-link>
-    <a :href="href || 'javascript:;'" :target="href ? '_blank' : null" @click="$emit('click', $event)" v-else class="dropdown-item" :class="{ 'active': active }">
-        <o-icon v-if="icon" :icon="['far', icon]" fixed-width class="mr-2 ml-n1"></o-icon>
+    <a v-else 
+        :href="props.href || 'javascript:;'" 
+        :target="props.href ? '_blank' : null" 
+        class="dropdown-item"
+        @click="listeners['click'] ? listeners['click']($event) : null"
+        :class="[
+            props.active ? 'active' : null,
+            props.disabled ? 'disabled' : null,
+            data.class,
+            data.staticClass
+        ]" >
+        <o-icon v-if="props.icon" :icon="['far', props.icon]" fixed-width class="mr-2 ml-n1"></o-icon>
         <slot></slot>
     </a>
 </template>
@@ -24,6 +42,10 @@ export default {
             default: null,
         },
         active: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
             type: Boolean,
             default: false
         }

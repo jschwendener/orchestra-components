@@ -2,11 +2,11 @@
     <div class="form-group">
         <label v-if="label" :for="`form-input-${label}`">{{ label }} <span v-if="required" class="text-danger">*</span></label>
         <slot />
-        <small v-if="helpText" 
+        <div v-if="helpText" 
             :id="`form-input-${label}-help`" 
-            class="form-text text-muted">
+            class="form-text text-muted py-1">
             {{ Array.isArray(helpText) ? helpText.join(', ') : helpText }}
-        </small>
+        </div>
     </div>
 </template>
 <script>
